@@ -12,18 +12,18 @@ class CheckTransactionUsecase:
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
         transaction = Transaction()
-        transaction.transaction_id = request.transaction_id
-        transaction.user_id = request.user_id
-        transaction.card_number = request.card_number 
-        transaction.transaction_date = request.transaction_date
-        transaction.transaction_amount = request.transaction_amount
-        transaction.device_id = request.device_id
-        transaction.merchant_id = request.merchant_id
+        transaction.transaction_id = request.transactionId
+        transaction.user_id = request.userId
+        transaction.card_number = request.cardNumber 
+        transaction.transaction_date = request.transactionDate
+        transaction.transaction_amount = request.transactionAmount
+        transaction.device_id = request.deviceId
+        transaction.merchant_id = request.merchantId
 
 
         predict = self._machine_learning.predict(transaction)
 
         return {
-            'transaction_id': transaction.transaction_id,
+            'transactionId': transaction.transaction_id,
             'recommendation': predict.status
         }

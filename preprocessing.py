@@ -23,7 +23,6 @@ x, y = base.iloc[:, 1:5].values, base.iloc[:, 5].values
 # card_number_label_encoder = LabelEncoder()
 # x[:, 2] = card_number_label_encoder.fit_transform(x[:, 2])
 
-
 ## Scaler ## 
 scaler_base = StandardScaler()
 x_base = scaler_base.fit_transform(x)

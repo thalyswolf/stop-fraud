@@ -10,14 +10,14 @@ class RecommendationEnum(str, Enum):
     SUSPECT = 'suspect'
 
 class CheckTransactionRequest(BaseModel):
-    transaction_id: int
-    user_id: int
-    card_number: str
-    transaction_date: str
-    transaction_amount: str
-    device_id: str
-    merchant_id: int
+    transactionId: int
+    userId: int
+    cardNumber: str
+    transactionDate: str
+    transactionAmount: str
+    deviceId: str
+    merchantId: int
 
 class CheckTransactionResponse(BaseModel):
-    transaction_id: int
+    transactionId: int
     recommendation: RecommendationEnum
