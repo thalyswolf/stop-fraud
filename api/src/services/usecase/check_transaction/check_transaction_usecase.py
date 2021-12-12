@@ -1,5 +1,6 @@
 from typing import Dict
 
+from src.services.errors.handler import InvalidAmountErrorException
 from src.domain.entities.transaction import Transaction
 from src.domain.usecase.check_transaction import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
@@ -10,6 +11,9 @@ class CheckTransactionUsecase:
         self._machine_learning = machine_learning
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
+
+        if request.transactionAmount < 0:
+            raise InvalidAmountErrorException()
 
         transaction = Transaction()
         transaction.transaction_id = request.transactionId
