@@ -16,6 +16,7 @@ class CheckTransactionRequest(BaseModel):
     transaction_date: str
     transaction_amount: str
     device_id: str
+    merchant_id: int
 
 class CheckTransactionResponse(BaseModel):
     transaction_id: int
