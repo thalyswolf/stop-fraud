@@ -5,3 +5,4 @@ class Transaction:
     transaction_date: str
     transaction_amount: str
     device_id: str
+    merchant_id: int
