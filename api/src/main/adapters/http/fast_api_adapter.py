@@ -1,6 +1,6 @@
 from typing import Dict
 
-from src.presentation.contracts.controller_contract import HttpRequest
+from src.services.contracts.controller_contract import HttpRequest
 
 
 def fast_api_adapter(request: Dict) -> HttpRequest:

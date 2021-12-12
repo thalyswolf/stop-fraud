@@ -1,5 +1,5 @@
 from src.services.usecase.check_transaction.check_transaction_usecase import CheckTransactionUsecase
-from src.presentation.contracts.controller_contract import HttpRequest, HttpResponse
+from src.services.contracts.controller_contract import HttpRequest, HttpResponse
 
 
 class CheckTransactionController:
