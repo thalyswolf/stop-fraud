@@ -1,8 +1,7 @@
-from typing import Dict, List
-import pickle
-from sklearn.naive_bayes import GaussianNB
-import os.path
+import pickle, os
 
+from src.main.adapters.common.machile_learning_decode_adapter import machine_learning_decode_adapter
+from src.main.adapters.common.machine_learning_predict_adapter import machine_learning_predict_adapter
 from src.domain.entities.transaction import Transaction
 from src.domain.entities.predict import Predict
 
@@ -26,6 +25,5 @@ class MachineLearning:
 
 
     def predict(self, transaction: Transaction) -> Predict:
-        predict = Predict()
-        predict.status = 'approve'
-        return predict
+        response_predict = self._objekt.predict(machine_learning_predict_adapter(transaction))
+        return machine_learning_decode_adapter(response_predict)
