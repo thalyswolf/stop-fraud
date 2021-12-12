@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+    stop-fraud:
+        container_name: stop-fraud
+        build: ../api/
+        ports:
+        - 8081:80
+        volumes:
+        - ../api/:/home/stop-fraud
+        networks:
+        - app_network
+
+networks:
+    app_network:
+        driver: bridge
