@@ -18,6 +18,8 @@ class CheckTransactionUsecase:
         transaction.transaction_date = request.transaction_date
         transaction.transaction_amount = request.transaction_amount
         transaction.device_id = request.device_id
+        transaction.merchant_id = request.merchant_id
+
 
         predict = self._machine_learning.predict(transaction)
 
