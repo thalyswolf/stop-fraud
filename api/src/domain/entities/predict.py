@@ -1,0 +1,3 @@
+
+class Predict:
+    status: str
