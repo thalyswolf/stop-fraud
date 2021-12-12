@@ -9,19 +9,12 @@ app = FastAPI()
 @app.post('/check-transaction', response_model=CheckTransactionResponse)
 def check_transaction(body: CheckTransactionRequest, response: Response) -> CheckTransactionResponse:
 
-    try:
-        request = {
-            'body': body,
-            'headers': None,
-            'query': None
-        }
-        response = CheckTransactionController().check_transaction(fast_api_adapter(request))
+    request = {
+        'body': body,
+        'headers': None,
+        'query': None
+    }
+    response = CheckTransactionController().check_transaction(fast_api_adapter(request))
 
-        return {
-            'transaction_id': 1,
-            'recommendation': 'approve'
-        }
-        
-    except:
-        from traceback import format_exc
-        print(format_exc())
+    print(response.body)
+    return response.body
