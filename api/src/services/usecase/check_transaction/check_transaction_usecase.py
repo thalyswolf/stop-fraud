@@ -12,7 +12,9 @@ class CheckTransactionUsecase:
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
-        if request.transactionAmount < 0:
+        amount = request.transactionAmount
+
+        if amount < 0:
             raise InvalidAmountErrorException()
 
         transaction = Transaction()
@@ -20,7 +22,7 @@ class CheckTransactionUsecase:
         transaction.user_id = request.userId
         transaction.card_number = request.cardNumber 
         transaction.transaction_date = request.transactionDate
-        transaction.transaction_amount = request.transactionAmount
+        transaction.transaction_amount = amount
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
