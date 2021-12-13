@@ -1,3 +1,5 @@
 *.pkl
 *teste*
 __pycache__
+learning.py
+preprocessing.py
