@@ -1,2 +1,3 @@
 *.pkl
 *teste*
+__pycache__
