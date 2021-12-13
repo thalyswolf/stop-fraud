@@ -19,5 +19,6 @@ class CheckTransactionRequest(BaseModel):
     merchantId: int
 
 class CheckTransactionResponse(BaseModel):
-    transactionId: int
-    recommendation: RecommendationEnum
+    transactionId: Optional[int]
+    recommendation: Optional[RecommendationEnum]
+    error: Optional[str]
