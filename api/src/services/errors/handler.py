@@ -8,9 +8,9 @@ class GenericErrorException(Exception):
 
 class InvalidAmountErrorException(Exception):
 
-    """ Exception raised when an some occures error """
+    """ Exception raised when an invalid value is informed """
 
-    def __init__(self, message='An error occures'):
+    def __init__(self, message='invalid value is informed'):
         self.message = message
         super().__init__(self.message)
 
