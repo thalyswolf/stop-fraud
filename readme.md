@@ -5,7 +5,8 @@ Application was developed using Python, Docker, Clean Code and Machine Learning 
 
 ## Better Code Hub
 [![BCH compliance](https://bettercodehub.com/edge/badge/thalyswolf/stop-fraud?branch=main)](https:/bettercodehub.com/)
-![Metrics](https://i.ibb.co/m83N95J/Screen-Shot-2021-12-12-at-21-59-07.png)
+
+[!Metrics](https://i.ibb.co/m83N95J/Screen-Shot-2021-12-12-at-21-59-07.png)
 
 ## Run application
 ```console
