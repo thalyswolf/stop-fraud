@@ -4,17 +4,19 @@ from src.services.errors.handler import InvalidAmountErrorException
 from src.domain.entities.transaction import Transaction
 from src.domain.usecase.check_transaction import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
+from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
 
 class CheckTransactionUsecase:
     
-    def __init__(self, machine_learning: MachineLearningContract) -> None:
+    def __init__(self, machine_learning: MachineLearningContract, transaction_repository: TransactionRepositoryContract) -> None:
         self._machine_learning = machine_learning
+        self._transaction_repository = transaction_repository
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
         amount = request.transactionAmount
 
-        if amount < 0:
+        if float(amount) < 0:
             raise InvalidAmountErrorException()
 
         transaction = Transaction()
@@ -26,6 +28,7 @@ class CheckTransactionUsecase:
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
+        _ = self._transaction_repository.save_transaction(transaction)
 
         predict = self._machine_learning.predict(transaction)
 
