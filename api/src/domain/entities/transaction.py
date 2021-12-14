@@ -1,8 +1,10 @@
 class Transaction:
+    internal_id: str
     transaction_id: int
     user_id: int
     card_number: str
-    transaction_date: str
-    transaction_amount: str
+    date: str
+    amount: float
     device_id: str
     merchant_id: int
+    is_fraud: bool
