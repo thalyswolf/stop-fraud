@@ -5,12 +5,16 @@ from src.domain.entities.transaction import Transaction
 from src.domain.usecase.request_and_response import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
 from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
+from src.services.contracts.model_repository_contract import ModelRepositoryContract
 
 class CheckTransactionUsecase:
     
-    def __init__(self, machine_learning: MachineLearningContract, transaction_repository: TransactionRepositoryContract) -> None:
+    def __init__(self, machine_learning: MachineLearningContract, 
+                transaction_repository: TransactionRepositoryContract,
+                model_repository: ModelRepositoryContract) -> None:
         self._machine_learning = machine_learning
         self._transaction_repository = transaction_repository
+        self._model_repository = model_repository
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
@@ -28,7 +32,9 @@ class CheckTransactionUsecase:
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
-        predict = self._machine_learning.predict(transaction)
+        model_learned = self._model_repository.get_last_learned_model()
+
+        predict = self._machine_learning.predict(model_learned, transaction)
 
         transaction.is_fraud = True if predict.status == 'deny' else False
 
