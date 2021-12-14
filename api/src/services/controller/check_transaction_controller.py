@@ -5,6 +5,7 @@ from src.services.usecase.check_transaction.check_transaction_usecase import Che
 from src.services.contracts.controller_contract import HttpRequest, HttpResponse
 from src.main.factories.get_machine_learning_factory import get_machine_learning_factory
 from src.main.factories.get_transaction_repository_factory import get_transaction_repository_factory
+from src.main.factories.get_model_repository_factory import get_model_repository_factory
 from src.services.errors.handler import InvalidAmountErrorException
 
 class CheckTransactionController:
@@ -13,8 +14,9 @@ class CheckTransactionController:
         try:
             machine_learning = get_machine_learning_factory()
             transaction_repository = get_transaction_repository_factory()
+            model_repository = get_model_repository_factory()
 
-            response = CheckTransactionUsecase(machine_learning, transaction_repository)\
+            response = CheckTransactionUsecase(machine_learning, transaction_repository, model_repository)\
                                             .execute(http_request.payload)
 
             return HttpResponse(HTTPResponseStatus.SUCCESS, response)
