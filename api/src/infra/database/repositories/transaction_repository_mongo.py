@@ -26,3 +26,10 @@ class TransactionRepositoryMongo(TransactionRepositoryContract):
         transaction.internal_id = str(result.inserted_id)
 
         return transaction
+
+    def save_new_status(self, internal_id: str, new_status: bool):
+        query = { "_id": internal_id}
+        result = self.collection_name.find_one(query)
+
+        print(result)
+

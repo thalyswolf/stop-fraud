@@ -8,3 +8,7 @@ class TransactionRepositoryTest(TransactionRepositoryContract):
     def save_transaction(self, transaction: Transaction) -> Transaction:
         transaction.internal_id = str(uuid4())
         return transaction
+
+
+    def save_new_status(self, internal_id: str, new_status: bool):
+        pass
