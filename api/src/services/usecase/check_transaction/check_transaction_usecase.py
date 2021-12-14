@@ -23,16 +23,21 @@ class CheckTransactionUsecase:
         transaction.transaction_id = request.transactionId
         transaction.user_id = request.userId
         transaction.card_number = request.cardNumber 
-        transaction.transaction_date = request.transactionDate
-        transaction.transaction_amount = amount
+        transaction.date = request.transactionDate
+        transaction.amount = amount
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
+        predict = self._machine_learning.predict(transaction)
+
+        transaction.is_fraud = True if predict.status == 'deny' else False
+
         _ = self._transaction_repository.save_transaction(transaction)
 
-        predict = self._machine_learning.predict(transaction)
+        print(transaction.internal_id)
 
         return {
             'transactionId': transaction.transaction_id,
-            'recommendation': predict.status
+            'recommendation': predict.status,
+            'internalId': transaction.internal_id
         }
