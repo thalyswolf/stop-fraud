@@ -4,5 +4,5 @@ from src.infra.queue.rabbitmq.connection import RabbitConnection
 
 class RabbitMQMessaging(MessagingQueueContract):
     def send_to_queue(self):
-        RabbitConnection().send_message({})
+        RabbitConnection().send_message('null')
         print('The message was sent')
