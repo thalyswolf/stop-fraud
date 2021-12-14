@@ -1,0 +1,2 @@
+class LearningModel:
+    model: bytes
