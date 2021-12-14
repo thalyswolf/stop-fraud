@@ -2,7 +2,7 @@ from typing import Dict
 
 from src.services.errors.handler import InvalidAmountErrorException
 from src.domain.entities.transaction import Transaction
-from src.domain.usecase.check_transaction import CheckTransactionRequest
+from src.domain.usecase.request_and_response import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
 from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
 

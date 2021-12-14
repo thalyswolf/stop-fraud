@@ -1,3 +1,5 @@
+from bson.objectid import ObjectId
+
 from src.domain.entities.transaction import Transaction
 from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
 from src.infra.database.mongo.connection import MongoConnection
@@ -28,8 +30,9 @@ class TransactionRepositoryMongo(TransactionRepositoryContract):
         return transaction
 
     def save_new_status(self, internal_id: str, new_status: bool):
-        query = { "_id": internal_id}
-        result = self.collection_name.find_one(query)
+        print(new_status)
+        query = { "_id": ObjectId(internal_id) }
+        result = self.collection_name.find_one_and_update(query, { "$set": {'isFraud': new_status} })
 
         print(result)
 
