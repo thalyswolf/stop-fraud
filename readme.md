@@ -22,3 +22,5 @@ http://localhost/docs
 ## Example
 ![Example](https://i.ibb.co/zmMtXKv/Screen-Shot-2021-12-13-at-09-27-23.png)
 
+## Architecture
+![Example](https://i.ibb.co/K5ZYp95/Untitled-Diagram-drawio.png)
