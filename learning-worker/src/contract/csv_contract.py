@@ -11,5 +11,5 @@ class CSVContract(ABC):
 
 
     @abstractmethod
-    def write_row(self, transactions:List[Transaction]):
+    def generate_new_file(self, transactions:List[Transaction]):
         pass

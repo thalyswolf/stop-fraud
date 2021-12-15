@@ -7,6 +7,7 @@ from src.main.factories.get_machine_learning_factory import get_machine_learning
 from src.main.factories.get_transaction_repository_factory import get_transaction_repository_factory
 from src.main.factories.get_model_repository_factory import get_model_repository_factory
 from src.services.errors.handler import InvalidAmountErrorException
+from src.infra.queue.rabbitmq.rabbitmq import RabbitMQMessaging
 
 class CheckTransactionController:
     
