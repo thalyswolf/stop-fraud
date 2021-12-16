@@ -14,6 +14,16 @@ class InvalidAmountErrorException(Exception):
         self.message = message
         super().__init__(self.message)
 
+
+class InvalidRecommendationErrorException(Exception):
+
+    """ Exception raised when an invalid recommendation is informed """
+
+    def __init__(self, message='invalid value is informed'):
+        self.message = message
+        super().__init__(self.message)
+
+
 class InvalidDataErrorException(Exception):
 
     """ Exception raised when an some occures error """
