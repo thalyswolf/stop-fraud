@@ -1,11 +1,11 @@
 from traceback import format_exc
 
 from src.services.enum.http_status_enum import HTTPResponseStatus
-from src.services.usecase.update_transaction.update_transaction_usercase import UpdateTransactionUsecase
+from src.services.usecase.update_transaction.update_transaction_usecase import UpdateTransactionUsecase
 from src.services.contracts.controller_contract import HttpRequest, HttpResponse
 from src.main.factories.get_transaction_repository_factory import get_transaction_repository_factory
 from src.main.factories.get_messaging_queue_factory import get_messaging_queue_factory
-from src.services.errors.handler import InvalidAmountErrorException
+from src.services.errors.handler import InvalidAmountErrorException, InvalidRecommendationErrorException
 
 
 class UpdateTransactionController:
@@ -21,7 +21,7 @@ class UpdateTransactionController:
 
             return HttpResponse(HTTPResponseStatus.SUCCESS, response)
 
-        except InvalidAmountErrorException as ie:
+        except (InvalidAmountErrorException, InvalidRecommendationErrorException) as ie:
             return HttpResponse(HTTPResponseStatus.INVALID_DATA, {
                 'error': ie.message
             })
