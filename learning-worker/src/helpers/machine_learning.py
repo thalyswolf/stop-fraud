@@ -9,6 +9,8 @@ from sklearn.ensemble import RandomForestClassifier
 from src.contract.machine_learning_contract import MachineLearningContract
 from src.core.entity.transaction import Transaction
 from src.adapter.transaction_to_dict_row_adapter import transaction_to_dict_row_adapter
+from src.helpers.get_env import get_env
+
 
 class MachineLearning(MachineLearningContract):
 
@@ -21,7 +23,7 @@ class MachineLearning(MachineLearningContract):
 
 
     def preprocessing(self, transactions: List[Transaction]) -> None:
-        base = self.pd.read_csv('./src/storage/transactions.csv')
+        base = self.pd.read_csv('{}transactions.csv'.format(get_env('STORAGE_DIR')))
 
         for transaction in transactions:
             base = base.append(transaction_to_dict_row_adapter(transaction), ignore_index=True)
@@ -39,12 +41,12 @@ class MachineLearning(MachineLearningContract):
 
         x_training, x_testing, y_training, y_testing = self.train_split(x, y, test_size=0.15, random_state=0)
 
-        with open('./src/storage/base.pkl', mode='wb') as f:
+        with open('{}base.pkl'.format(get_env('STORAGE_DIR')), mode='wb') as f:
             self.pickle.dump([x_training, y_training, x_testing, y_testing], f)
 
 
     def learning(self) -> None:
-        with open('./src/storage/base.pkl', 'rb') as f:
+        with open('{}base.pkl'.format(get_env('STORAGE_DIR')), 'rb') as f:
             x_training, y_training, x_testing, y_testing = pickle.load(f)
 
         print(x_training)
@@ -55,7 +57,7 @@ class MachineLearning(MachineLearningContract):
         return self.pickle.dumps(ml)
 
     def test(self, transactions):
-        base = self.pd.read_csv('./src/storage/transactions.csv')
+        base = self.pd.read_csv('{}transactions.csv'.format(get_env('STORAGE_DIR')))
         print(base.shape)
 
         data = {
