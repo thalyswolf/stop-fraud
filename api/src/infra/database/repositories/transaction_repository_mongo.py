@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 from src.domain.entities.transaction import Transaction
 from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
 from src.infra.database.mongo.connection import MongoConnection
-
+from src.services.errors.handler import NotFoundDBErrorException
 
 class TransactionRepositoryMongo(TransactionRepositoryContract):
 
@@ -32,7 +32,13 @@ class TransactionRepositoryMongo(TransactionRepositoryContract):
     def save_new_status(self, internal_id: str, new_status: bool):
         print(new_status)
         query = { "_id": ObjectId(internal_id) }
-        result = self.collection_name.find_one_and_update(query, { "$set": {'isFraud': new_status} })
+
+        check = self.collection_name.find_one(query)
+
+        if not check:
+            raise NotFoundDBErrorException()
+
+        result = self.collection_name.find_one_and_update(query, { "$set": {'isFraud': new_status} }, upsert=False)
 
         print(result)
 
