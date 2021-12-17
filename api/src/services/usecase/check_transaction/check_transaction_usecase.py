@@ -1,11 +1,15 @@
 from typing import Dict
 
+
+from src.main.factories.get_learning_model_null_factory import get_learning_model_null_factory
 from src.services.errors.handler import InvalidAmountErrorException
 from src.domain.entities.transaction import Transaction
 from src.domain.usecase.request_and_response import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
 from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
 from src.services.contracts.model_repository_contract import ModelRepositoryContract
+from src.services.errors.handler import NotFoundDBErrorException
+
 
 class CheckTransactionUsecase:
     
@@ -15,6 +19,7 @@ class CheckTransactionUsecase:
         self._machine_learning = machine_learning
         self._transaction_repository = transaction_repository
         self._model_repository = model_repository
+
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
@@ -32,7 +37,10 @@ class CheckTransactionUsecase:
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
-        model_learned = self._model_repository.get_last_learned_model()
+        try:
+            model_learned = self._model_repository.get_last_learned_model()
+        except NotFoundDBErrorException:
+            model_learned = get_learning_model_null_factory() 
 
         predict = self._machine_learning.predict(model_learned, transaction)
 
