@@ -19,7 +19,9 @@ class UpdateTransactionController:
             response = UpdateTransactionUsecase(transaction_repository, messaging_queue)\
                                             .execute(http_request.payload)
 
-            return HttpResponse(HTTPResponseStatus.SUCCESS_NO_BODY, response)
+            return HttpResponse(HTTPResponseStatus.ACCEPTED_BUT_PROCESSING, {
+                'message': 'processing...'
+            })
 
         except (InvalidAmountErrorException, InvalidRecommendationErrorException) as ie:
             return HttpResponse(HTTPResponseStatus.INVALID_DATA, {
