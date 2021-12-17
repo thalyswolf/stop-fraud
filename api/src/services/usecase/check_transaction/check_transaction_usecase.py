@@ -14,7 +14,7 @@ class CheckTransactionUsecase:
 
         amount = request.transactionAmount
 
-        if amount < 0:
+        if float(amount) < 0:
             raise InvalidAmountErrorException()
 
         transaction = Transaction()
