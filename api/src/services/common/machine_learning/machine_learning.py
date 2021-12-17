@@ -14,7 +14,12 @@ class MachineLearning:
 
     def predict(self, learning_model: LearningModel, transaction: Transaction) -> Predict:
 
-        objekt = self._pickle.loads(learning_model.model)
+        if learning_model.model:
+            objekt = self._pickle.loads(learning_model.model)
+        else: 
+            with open(os.path.dirname(os.path.abspath(__file__)) + '/model.pkl', 'rb') as f:
+                objekt = pickle.load(f)
+            
         response_predict = objekt.predict(machine_learning_predict_adapter(transaction))
         
         return machine_learning_decode_adapter(response_predict)
