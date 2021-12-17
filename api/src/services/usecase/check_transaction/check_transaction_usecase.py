@@ -1,35 +1,57 @@
 from typing import Dict
 
+
+from src.main.factories.get_learning_model_null_factory import get_learning_model_null_factory
 from src.services.errors.handler import InvalidAmountErrorException
 from src.domain.entities.transaction import Transaction
-from src.domain.usecase.check_transaction import CheckTransactionRequest
+from src.domain.usecase.request_and_response import CheckTransactionRequest
 from src.services.contracts.machine_learning_contract import MachineLearningContract
+from src.services.contracts.transaction_repository_contract import TransactionRepositoryContract
+from src.services.contracts.model_repository_contract import ModelRepositoryContract
+from src.services.errors.handler import NotFoundDBErrorException
+
 
 class CheckTransactionUsecase:
     
-    def __init__(self, machine_learning: MachineLearningContract) -> None:
+    def __init__(self, machine_learning: MachineLearningContract, 
+                transaction_repository: TransactionRepositoryContract,
+                model_repository: ModelRepositoryContract) -> None:
         self._machine_learning = machine_learning
+        self._transaction_repository = transaction_repository
+        self._model_repository = model_repository
+
 
     def execute(self, request: CheckTransactionRequest) -> Dict:
 
         amount = request.transactionAmount
 
-        if amount < 0:
+        if float(amount) < 0:
             raise InvalidAmountErrorException()
 
         transaction = Transaction()
         transaction.transaction_id = request.transactionId
         transaction.user_id = request.userId
         transaction.card_number = request.cardNumber 
-        transaction.transaction_date = request.transactionDate
-        transaction.transaction_amount = amount
+        transaction.date = request.transactionDate
+        transaction.amount = amount
         transaction.device_id = request.deviceId
         transaction.merchant_id = request.merchantId
 
+        try:
+            model_learned = self._model_repository.get_last_learned_model()
+        except NotFoundDBErrorException:
+            model_learned = get_learning_model_null_factory() 
 
-        predict = self._machine_learning.predict(transaction)
+        predict = self._machine_learning.predict(model_learned, transaction)
+
+        transaction.is_fraud = True if predict.status == 'deny' else False
+
+        _ = self._transaction_repository.save_transaction(transaction)
+
+        print(transaction.internal_id)
 
         return {
             'transactionId': transaction.transaction_id,
-            'recommendation': predict.status
+            'recommendation': predict.status,
+            'internalId': transaction.internal_id
         }

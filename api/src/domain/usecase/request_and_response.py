@@ -3,11 +3,9 @@ from typing import Dict, Optional
 from pydantic import BaseModel
 from enum import Enum
 
-
 class RecommendationEnum(str, Enum):
     APPROVE = 'approve'
     DENY = 'deny'
-    SUSPECT = 'suspect'
 
 class CheckTransactionRequest(BaseModel):
     transactionId: int
@@ -19,6 +17,14 @@ class CheckTransactionRequest(BaseModel):
     merchantId: int
 
 class CheckTransactionResponse(BaseModel):
+    internalId: Optional[str]
     transactionId: Optional[int]
     recommendation: Optional[RecommendationEnum]
     error: Optional[str]
+
+class UpdateTransactionRequest(BaseModel):
+    internalId: str
+    newRecommendation: Optional[RecommendationEnum]
+
+class UpdateTransactionResponse(BaseModel):
+    success: bool

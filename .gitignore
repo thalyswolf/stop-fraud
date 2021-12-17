@@ -4,3 +4,4 @@ __pycache__
 *cache*
 learning.py
 preprocessing.py
+.env

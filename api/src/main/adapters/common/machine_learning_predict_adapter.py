@@ -10,6 +10,6 @@ def machine_learning_predict_adapter(transaction: Transaction) -> List[List[floa
     return [[
         transaction.merchant_id,
         transaction.user_id,
-        format_amount_from_int_to_float(transaction.transaction_amount),
+        transaction.amount,
         transaction.device_id,
     ]]

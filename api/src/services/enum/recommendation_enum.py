@@ -1,0 +1,2 @@
+APPROVE = 'approve'
+DENY = 'deny'
