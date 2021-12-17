@@ -1,13 +1,9 @@
 
 # Stop Fraud
 
-  
-
 ## Resume
 
-Application was developed using Python, Docker, Clean Code and Machine Learning (Random Forest)
-
-  
+Application was developed using Python, Docker, Clean Code and Machine Learning (Random Forest)  
 
 ## Better Code Hub
 
@@ -51,8 +47,10 @@ http://localhost/docs
 ## Results
 #### Random Forest
 Accuracy score:  93% 
+
 ![Matrix](https://i.ibb.co/3W9jWFQ/Screen-Shot-2021-12-17-at-13-50-48.png)
 
 #### Neural Network
 Accuracy score:  85% 
+
 ![Matrix](https://i.ibb.co/m9RbDLR/Screen-Shot-2021-12-17-at-13-54-15.png)
